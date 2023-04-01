@@ -13,6 +13,22 @@ LOC_TOLERANCE = 1000 # meters
 
 ### ------ STATES ------ ###
 
+accounts = [
+    {
+        "email": "test@1.com",
+        "password": "test1",
+        "name": "Test User1",
+        "rating": 4.5,
+        "personality" : {
+            "p1": 2,
+            "p2": 3,
+            "p3": 4,
+            "p4": 1,
+            "p5": 5,
+        }
+    }
+]
+
 # Offer : {email, startCord: {long: float, lat: float}, endCord: {long: float, lat: float}}
 offers = [
     {
@@ -27,6 +43,27 @@ requests = []
 
 # Request : {carpoolers: [email], startCord: float, endCord: float}
 carpools = []
+
+
+### ------ ACCOUNTS ------ ###
+
+# Register
+# BODY: See profiles sample data type above
+@app.route("/register", methods = ['POST'])
+def register():
+    accounts.append(request.get_json())
+    return jsonify(success=True)
+
+# Login
+# BODY: {email, password}
+@app.route("/login", methods = ['POST'])
+def login():
+    req = request.get_json()
+    email, password = req["email"], req["password"]
+    for account in accounts:
+        if account['email'] == email and account['password'] == password:
+            return jsonify(account)
+    return jsonify(found=False)
 
 
 ### ------ OFFERS ------ ###
