@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
+from crypto import encrypt, decrypt
 
 app = Flask(__name__)
 CORS(app)
@@ -51,25 +52,32 @@ requests = [
 carpools = []
 
 
+### All bodies in requests are wrapped with a data field, this data is encrypted and decrypted when communicating
+
 ### ------ ACCOUNTS ------ ###
 
 # Register
 # BODY: See profiles sample data type above
 @app.route("/register", methods = ['POST'])
 def register():
-    accounts.append(request.get_json())
-    return jsonify(success=True)
+    accounts.append(decrypt(request.get_json()['data']))
+    res = {'success': True}
+    return jsonify({'data': encrypt(res)})
 
 # Login
 # BODY: {email, password}
 @app.route("/login", methods = ['POST'])
 def login():
-    req = request.get_json()
+    req = decrypt(request.get_json()['data'])
     email, password = req["email"], req["password"]
+
+    res = {'found': False}
     for account in accounts:
         if account['email'] == email and account['password'] == password:
-            return jsonify(account)
-    return jsonify(found=False)
+            res = account
+            break
+
+    return jsonify({'data': encrypt(res)})
 
 
 ### ------ OFFERS ------ ###
@@ -78,7 +86,7 @@ def login():
 # BODY: {startCord: {long, lat}, endCord: {long, lat}}
 @app.route("/offers")
 def getOffers():
-    req = request.get_json()
+    req = decrypt(request.get_json()['data'])
     start, end = req["startCord"], req["endCord"]
     nearbyOffers = []
     for offer in offers:
@@ -88,35 +96,41 @@ def getOffers():
             abs(offer["endCord"]["lat"] - end["lat"])*DEG_TO_METERS <= LOC_TOLERANCE:
             nearbyOffers.append(offer)
 
-    return jsonify(nearbyOffers)
+    res = {nearbyOffers}
+    return jsonify({'data': encrypt(res)})
 
 # Adds carpool offer given offerer email, start and end cords
 # BODY: {offerer, startCord: {long, lat}, endCord: {long, lat}}
 @app.route("/offers", methods = ['POST'])
 def addOffers():
-    offers.append(request.get_json())
-    return jsonify(success=True)
+    offers.append(decrypt(request.get_json()['data']))
+    res = {'success': True}
+    return jsonify({'data': encrypt(res)})
 
 
 ### ------ REQUESTS ------ ###
 
 # Gets requests made to offers for an offerer
-# /requests/offerer@test.com
-@app.route("/requests/<offerer>")
+# BODY {offerer: email}
+@app.route("/requests/")
 def getRequests(offerer):
+    req = decrypt(request.get_json()['data'])
+    offere = req['offerer']
     offerRequests = []
     for request in requests:
         if request['offerer'] == offerer:
             offerRequests.append(request)
 
-    return jsonify(offerRequests)
+    res = {offerRequests}
+    return jsonify({'data': encrypt(res)})
 
 # Adds requests 
 # BODY: {requester:email, offerer:email}
 @app.route("/requests", methods = ['POST'])
 def addRequests():
-    requests.append(request.get_json())
-    return jsonify(success=True)
+    requests.append(decrypt(request.get_json()['data']))
+    res = {'success': True}
+    return jsonify({'data': encrypt(res)})
 
 if __name__ == "__main__":
     app.run(debug=True)
