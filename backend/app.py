@@ -11,6 +11,7 @@ def home():
 DEG_TO_METERS = 111139
 LOC_TOLERANCE = 1000 # meters
 
+
 ### ------ STATES ------ ###
 
 accounts = [
@@ -32,14 +33,19 @@ accounts = [
 # Offer : {email, startCord: {long: float, lat: float}, endCord: {long: float, lat: float}}
 offers = [
     {
-        "email": "test@1.com", 
+        "offerer": "test@1.com", 
         "startCord": {"long": -79.919225, "lat":43.260879}, # mcmaster
-        "endCord":  {"long": -79.390331772, "lat":43.656997372} #uoft
+        "endCord":  {"long": -79.390331772, "lat":43.656997372}, #uoft
     }
 ]
 
 # Request : {requester, offerer}
-requests = []
+requests = [
+      {
+        "requester": "test@2.com",
+        "offerer": "test@1.com", 
+    }
+]
 
 # Request : {carpoolers: [email], startCord: float, endCord: float}
 carpools = []
@@ -84,8 +90,8 @@ def getOffers():
 
     return jsonify(nearbyOffers)
 
-# Adds carpool offer given email, start and end cords
-# BODY: {email, startCord: {long, lat}, endCord: {long, lat}}
+# Adds carpool offer given offerer email, start and end cords
+# BODY: {offerer, startCord: {long, lat}, endCord: {long, lat}}
 @app.route("/offers", methods = ['POST'])
 def addOffers():
     offers.append(request.get_json())
