@@ -27,7 +27,7 @@ requests = []
 carpools = []
 
 # Gets active carpool offers given start and end cords
-# req {startCord: {long, lat}, endCord: {long, lat}}
+# BODY: {startCord: {long, lat}, endCord: {long, lat}}
 @app.route("/offers")
 def getOffers():
     req = request.get_json()
@@ -41,6 +41,13 @@ def getOffers():
             nearbyOffers.append(offer)
 
     return jsonify(nearbyOffers)
+
+# Adds carpool offer given email, start and end cords
+# BODY: {email, startCord: {long, lat}, endCord: {long, lat}}
+@app.route("/offers", methods = ['POST'])
+def addOffers():
+    offers.append(request.get_json())
+    return jsonify(success=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
