@@ -1,16 +1,13 @@
-import React from 'react';
-import styles from '../styles/styles';
-import { Text, View, Button } from 'react-native';
+import React from "react";
+import styles from "../styles/styles";
+import { Text, View, Button } from "react-native";
 
-
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Text>
-                Just put whetevr login stuff here you want
-            </Text>
+            <Text>Just put whetevr login stuff here you want</Text>
         </View>
     );
 };
 
-export default Login
+export default Login;
