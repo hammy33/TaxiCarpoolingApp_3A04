@@ -2,6 +2,7 @@
 
 import base64 
 import ast
+import json
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad,unpad
 from dotenv import dotenv_values
@@ -10,7 +11,7 @@ from dotenv import dotenv_values
 key = dotenv_values(".env")['key'] #Must Be 16 char for AES128
 
 def encrypt(raw):
-        raw = str(raw)
+        raw = json.dumps(raw)
         raw = pad(raw.encode(),16)
         cipher = AES.new(key.encode('utf-8'), AES.MODE_ECB)
         encrypted = base64.b64encode(cipher.encrypt(raw))
@@ -26,10 +27,10 @@ def decrypt(enc):
 ### TESTING 
 
 # data = {
-#         "email": "test@1.com",
-#         "password": "test1",
+#   "startCord": {"long": -79.919225, "lat":43.260879}, 
+#         "endCord":  {"long": -79.390331772, "lat":43.656997372},
 # }
 
 # encrypted = encrypt(data)
 # print('encrypted ECB Base64:', encrypted)
-# print('data: ', decrypt("Ri2uhzyrwFhkxPQThgpvxAukhOMFrU7o19oNQaxc+MYvrQMLwcaRyxkd+7+v0l9n5goP0vtmrNmo7HwdMAQCqqGJoPBed1a6Hs+k4qmFFgWYxlnd9HcMeIkhXXBOpvRa7FSSR5Shhop/cRClKAlf71mboYQbuhg72cpiEBKnfgBDuWp+Ibx0gDy0K3tCYcgd"))
+# print('data: ', decrypt("3KujHfKr/UCAUqS+9p6bz0F7vSdpvB49+7sTtON0YDx0tzKaKNefLn31dPb8QBpvR9lXczfM5iOSkpqm20p5ie7YANI7GKr7slH0zTtsdqz9K1Tk+/qd0kFmk22ZxFnQ9XnxUNXKPGTCjXGc6aRKzTBTBOz8JVBryzOJ+YyF5rSJEL3mr6OGz0X6fjuXEv5d"))

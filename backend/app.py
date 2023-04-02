@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from crypto import encrypt, decrypt
+from crypto import encrypt, decrypt # ONLY JSON
 
 app = Flask(__name__)
 CORS(app)
@@ -96,7 +96,7 @@ def getOffers():
             abs(offer["endCord"]["lat"] - end["lat"])*DEG_TO_METERS <= LOC_TOLERANCE:
             nearbyOffers.append(offer)
 
-    res = {nearbyOffers}
+    res = nearbyOffers
     return jsonify({'data': encrypt(res)})
 
 # Adds carpool offer given offerer email, start and end cords
@@ -115,13 +115,13 @@ def addOffers():
 @app.route("/requests/")
 def getRequests(offerer):
     req = decrypt(request.get_json()['data'])
-    offere = req['offerer']
+    offerer = req['offerer']
     offerRequests = []
     for request in requests:
         if request['offerer'] == offerer:
             offerRequests.append(request)
 
-    res = {offerRequests}
+    res = offerRequests
     return jsonify({'data': encrypt(res)})
 
 # Adds requests 
