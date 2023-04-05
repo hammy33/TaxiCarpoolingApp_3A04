@@ -86,7 +86,7 @@ def update():
 # Delete account
 # BODY: {data: {email}}
 @app.route("/account/delete", methods = ['POST'])
-def update():
+def delete():
     status = delAccount(decrypt(request.get_json()['data'])['email'])
     res = {'success': status}
     return jsonify({'data': encrypt(res)})
@@ -148,7 +148,7 @@ def addRequests():
 # Create carpool, after offerer accpets request 
 # BODY {offerer: email, requester: email}
 @app.route("/acceptrequest", methods = ['POST'])
-def getRequests(offerer):
+def acceptRequest(offerer):
     req = decrypt(request.get_json()['data'])
     offerer, requester = req['offerer'], req['requester']
 
