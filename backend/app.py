@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from crypto import encrypt, decrypt # ONLY JSON
+from crypto import * # ONLY JSON
+from profiles import * # ONLY JSON
 
 app = Flask(__name__)
 CORS(app)
@@ -14,22 +15,6 @@ LOC_TOLERANCE = 1000 # meters
 
 
 ### ------ STATES ------ ###
-
-accounts = [
-    {
-        "email": "test@1.com",
-        "password": "test1",
-        "name": "Test User1",
-        "rating": 4.5,
-        "personality" : {
-            "p1": 2,
-            "p2": 3,
-            "p3": 4,
-            "p4": 1,
-            "p5": 5,
-        }
-    }
-]
 
 # Offer : {email, startCord: {long: float, lat: float}, endCord: {long: float, lat: float}}
 offers = [
@@ -60,7 +45,7 @@ carpools = []
 # BODY: See profiles sample data type above
 @app.route("/register", methods = ['POST'])
 def register():
-    accounts.append(decrypt(request.get_json()['data']))
+    addAccount(decrypt(request.get_json()['data']))
     res = {'success': True}
     return jsonify({'data': encrypt(res)})
 
@@ -72,11 +57,19 @@ def login():
     email, password = req["email"], req["password"]
 
     res = {'found': False}
-    for account in accounts:
-        if account['email'] == email and account['password'] == password:
-            res = account
-            break
 
+    account = getAccount(email)
+    if password == account["password"]:
+        res = account 
+
+    return jsonify({'data': encrypt(res)})
+
+# Update account
+# BODY: {data: Account}
+@app.route("/account/update", methods = ['POST'])
+def update():
+    updateAccount(decrypt(request.get_json()['data']))
+    res = {'success': True}
     return jsonify({'data': encrypt(res)})
 
 
@@ -124,7 +117,7 @@ def getRequests(offerer):
     res = offerRequests
     return jsonify({'data': encrypt(res)})
 
-# Adds requests 
+# Adds request (interest to join carpool)
 # BODY: {requester:email, offerer:email}
 @app.route("/requests", methods = ['POST'])
 def addRequests():
