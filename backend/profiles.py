@@ -33,7 +33,6 @@ def updateAccount(account):
     return account
 
 def delAccount(email):
-    global accounts
     for idx, account in enumerate(accounts):
         if account['email'] == email:
             accounts.pop(idx)

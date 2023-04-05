@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from crypto import * # ONLY JSON
 from profiles import * # ONLY JSON
+from utils import *
 
 app = Flask(__name__)
 CORS(app)
@@ -12,7 +13,7 @@ def home():
 
 DEG_TO_METERS = 111139
 LOC_TOLERANCE = 1000 # meters
-
+COST_PER_KM = 2
 
 ### ------ STATES ------ ###
 
@@ -27,14 +28,22 @@ offers = [
 
 # Request : {requester, offerer}
 requests = [
-      {
+    {
         "requester": "test@2.com",
         "offerer": "test@1.com", 
     }
 ]
 
 # Request : {carpoolers: [email], startCord: float, endCord: float}
-carpools = []
+carpools = [
+    {
+        "carpoolers": ["test@2.com", "test@1.com"],
+        "startCord": {"long": -79.919225, "lat":43.260879}, # mcmaster
+        "endCord":  {"long": -79.390331772, "lat":43.656997372}, #uoft
+        "active": True,
+        "costPerPerson": 10.40,
+    }
+]
 
 
 ### All bodies in requests are wrapped with a data field, this data is encrypted and decrypted when communicating
@@ -134,6 +143,46 @@ def addRequests():
     requests.append(decrypt(request.get_json()['data']))
     res = {'success': True}
     return jsonify({'data': encrypt(res)})
+
+
+# Create carpool, after offerer accpets request 
+# BODY {offerer: email, requester: email}
+@app.route("/acceptrequest", methods = ['POST'])
+def getRequests(offerer):
+    req = decrypt(request.get_json()['data'])
+    offerer, requester = req['offerer'], req['requester']
+
+    confirmedRequest = None
+    confirmedOffer = None
+
+    for idx, request in enumerate(requests):
+        if request['offerer'] == offerer and request['requester'] == requester:
+            confirmedRequest = request
+            requests.pop(idx) # Delete the request
+            break
+    if not confirmedRequest: # No request from requester to offerer
+        return "Record not found", 400
+
+    for idx, offer in enumerate(offers):
+        if offer['offerer'] == offerer:
+            confirmedOffer = offer
+            offers.pop(idx) # Delete the request
+            break
+    if not confirmedOffer: # Indicated offer doesnt exist
+        requests.append(confirmedRequest)
+        return "Record not found", 400
+    
+    carpool = {
+        "carpoolers": [confirmedRequest['requester'], confirmedRequest['offerer']],
+        "startCord": confirmedOffer['startCord'],
+        "endCord": confirmedOffer['endCord'],
+        "active": True,
+        "costPerPerson": distance(confirmedOffer['startCord'], confirmedOffer['endCord'])*COST_PER_KM/2
+    }
+    carpools.append(carpool)
+
+    return jsonify({'data': encrypt(carpool)})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
