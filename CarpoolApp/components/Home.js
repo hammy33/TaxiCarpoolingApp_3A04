@@ -10,16 +10,12 @@ const HomeScreen = ({ navigation }) => {
                 page
             </Text>
             <Button
-                title="Go to Login Page"
-                onPress={() => navigation.navigate("Login", "Jackson")}
-            />
-            <Button
                 title="Offer Carpool"
                 onPress={() => navigation.navigate("OfferCarpool")}
             />
             <Button
-                title="PersonalityTest"
-                onPress={() => navigation.navigate("PersonalityTest")}
+                title="Request Carpool"
+                onPress={() => navigation.navigate("OfferCarpool")}
             />
         </View>
     );
