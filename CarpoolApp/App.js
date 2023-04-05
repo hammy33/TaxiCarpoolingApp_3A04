@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Text, View, Button } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 import HomeScreen from './components/Home';
 import Login from './components/Login';
