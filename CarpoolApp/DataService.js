@@ -150,6 +150,34 @@ const DataService = {
         })
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
+    // Get active carpool given offerer + requester
+    getCarpool: (offererEmail, requesterEmail) =>
+        fetch(`${config.api}/carpools`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt({
+                    offerer: offererEmail,
+                    requester: requesterEmail,
+                }),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data)),
+    // End carpool given offerer + requester
+    endCarpool: (offererEmail, requesterEmail) =>
+        fetch(`${config.api}/endcarpool`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt({
+                    offerer: offererEmail,
+                    requester: requesterEmail,
+                }),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data)),
 };
 
 export default DataService;

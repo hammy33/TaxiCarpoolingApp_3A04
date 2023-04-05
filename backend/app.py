@@ -184,5 +184,37 @@ def getRequests(offerer):
     return jsonify({'data': encrypt(carpool)})
 
 
+### ------ CARPOOLS ------ ###
+
+
+# Get active carpool given offerer + requester
+# BODY {offerer: email, requester: email}
+@app.route("/carpools", methods = ['POST'])
+def getCarpool(offerer):
+    req = decrypt(request.get_json()['data'])
+    offerer, requester = req['offerer'], req['requester']
+
+    for carpool in carpools:
+        if carpool['active'] and carpool['offerer'] == offerer and carpool['requester'] == requester:
+            return jsonify({'data': encrypt(carpool)})
+    
+    return "Record not found", 400
+
+
+# End carpool given offerer + requester
+# BODY {offerer: email, requester: email}
+@app.route("/endcarpool", methods = ['POST'])
+def endCarpool(offerer):
+    req = decrypt(request.get_json()['data'])
+    offerer, requester = req['offerer'], req['requester']
+  
+    for carpool in carpools:
+        if carpool['active'] and carpool['offerer'] == offerer and carpool['requester'] == requester:
+            carpool['active'] = False
+            return jsonify({'data': encrypt(carpool)})
+
+    return "Record not found", 400
+
+
 if __name__ == "__main__":
     app.run(debug=True)
