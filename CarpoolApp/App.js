@@ -6,6 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './components/Home';
 import Login from './components/Login';
 import OfferCarpool from './components/OfferCarpool';
+import PersonalityTest from './components/PersonalityTest';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +18,7 @@ const MyStack = () => {
         <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Welcome to our carpool app'}}/>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="OfferCarpool" component={OfferCarpool}/>
+        <Stack.Screen name="PersonalityTest" component={PersonalityTest}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -18,8 +18,8 @@ const HomeScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate("OfferCarpool")}
             />
             <Button
-                title="put your page here"
-                onPress={() => navigation.navigate("Login")}
+                title="PersonalityTest"
+                onPress={() => navigation.navigate("PersonalityTest")}
             />
         </View>
     );
