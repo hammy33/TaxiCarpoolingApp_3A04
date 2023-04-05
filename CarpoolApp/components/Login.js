@@ -5,7 +5,7 @@ import { Text, View, Button } from "react-native";
 const Login = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Text>Just put whetevr login stuff here you want</Text>
+            <Text>Just put whetevr login stuff here you want test</Text>
         </View>
     );
 };
