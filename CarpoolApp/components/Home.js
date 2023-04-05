@@ -14,8 +14,8 @@ const HomeScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate("Login", "Jackson")}
             />
             <Button
-                title="put your page here"
-                onPress={() => navigation.navigate("Login")}
+                title="Offer Carpool"
+                onPress={() => navigation.navigate("OfferCarpool")}
             />
             <Button
                 title="put your page here"
