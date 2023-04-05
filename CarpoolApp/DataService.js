@@ -26,8 +26,8 @@ const decrypt = (message) => {
 
 const DataService = {
     // ACCOUNTS
-    register: (account) => {
-        return fetch(`${config.api}/register`, {
+    register: (account) =>
+        fetch(`${config.api}/register`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -35,10 +35,9 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
-    login: (email, password) => {
-        return fetch(`${config.api}/login`, {
+            .then((response) => decrypt(response.data)),
+    login: (email, password) =>
+        fetch(`${config.api}/login`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -46,10 +45,9 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
-    updateAcc: (account) => {
-        return fetch(`${config.api}/account/update`, {
+            .then((response) => decrypt(response.data)),
+    updateAcc: (account) =>
+        fetch(`${config.api}/account/update`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -57,10 +55,9 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
-    deleteAcc: (email) => {
-        return fetch(`${config.api}/account/update`, {
+            .then((response) => decrypt(response.data)),
+    deleteAcc: (email) =>
+        fetch(`${config.api}/account/update`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -68,8 +65,7 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
+            .then((response) => decrypt(response.data)),
     // Get active carpool offers, used to display to the carpool requester whats available
     // Takes the start and end of the requested trip -> retuns offers
     getOffersForRequester: (
@@ -77,8 +73,8 @@ const DataService = {
         startCordLat,
         endCordLong,
         endCordLat
-    ) => {
-        return fetch(`${config.api}/getoffers`, {
+    ) =>
+        fetch(`${config.api}/getoffers`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -89,8 +85,7 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
+            .then((response) => decrypt(response.data)),
     // Add an offer after a scan of QR code
     addOffer: (
         offererEmail,
@@ -98,8 +93,8 @@ const DataService = {
         startCordLat,
         endCordLong,
         endCordLat
-    ) => {
-        return fetch(`${config.api}/offer`, {
+    ) =>
+        fetch(`${config.api}/offer`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -111,12 +106,11 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
+            .then((response) => decrypt(response.data)),
     // Gets requests made to active offers for an offerer
     // Display to offerer, interest made by requesters in their offer
-    getRequestsForOfferer: (offererEmail) => {
-        return fetch(`${config.api}/getrequests`, {
+    getRequestsForOfferer: (offererEmail) =>
+        fetch(`${config.api}/getrequests`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -126,12 +120,11 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
+            .then((response) => decrypt(response.data)),
     // Gets requests made to active offers for an offerer
     // Display to offerer, interest made by requesters in their offer
-    addRequest: (offererEmail, requesterEmail) => {
-        return fetch(`${config.api}/request`, {
+    addRequest: (offererEmail, requesterEmail) =>
+        fetch(`${config.api}/request`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -142,8 +135,21 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data));
-    },
+            .then((response) => decrypt(response.data)),
+    // Offerer accepts an interest request
+    acceptRequest: (offererEmail, requesterEmail) =>
+        fetch(`${config.api}/acceptrequest`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt({
+                    offerer: offererEmail,
+                    requester: requesterEmail,
+                }),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data)),
 };
 
 export default DataService;
