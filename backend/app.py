@@ -56,13 +56,15 @@ def login():
     req = decrypt(request.get_json()['data'])
     email, password = req["email"], req["password"]
 
-    res = {'found': False}
-
+    res = False
     account = getAccount(email)
     if password == account["password"]:
         res = account 
 
-    return jsonify({'data': encrypt(res)})
+    if res:
+        return jsonify({'data': encrypt(res)})
+    return "Record not found", 400
+
 
 # Update account
 # BODY: {data: Account}
@@ -70,6 +72,14 @@ def login():
 def update():
     updateAccount(decrypt(request.get_json()['data']))
     res = {'success': True}
+    return jsonify({'data': encrypt(res)})
+
+# Delete account
+# BODY: {data: {email}}
+@app.route("/account/delete", methods = ['POST'])
+def update():
+    status = delAccount(decrypt(request.get_json()['data'])['email'])
+    res = {'success': status}
     return jsonify({'data': encrypt(res)})
 
 
