@@ -6,16 +6,22 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './components/Home';
 import Login from './components/Login';
 import OfferCarpool from './components/OfferCarpool';
+import PersonalityTest from './components/PersonalityTest';
+import Welcome from './components/Welcome';
+import Register from './components/Register';
 
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer initialRouteName="Welcome">
       <Stack.Navigator>
+        <Stack.Screen name="Welcome" component={Welcome}/>
         <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Welcome to our carpool app'}}/>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="OfferCarpool" component={OfferCarpool}/>
+        <Stack.Screen name="PersonalityTest" component={PersonalityTest}/>
+        <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );
