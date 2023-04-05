@@ -36,8 +36,39 @@ const DataService = {
             .then((response) => response.json())
             .then((response) => decrypt(response.data));
     },
-
-    login: () => {},
+    login: (email, password) => {
+        return fetch(`${config.api}/login`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt({ email, password }),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data));
+    },
+    updateAcc: (account) => {
+        return fetch(`${config.api}/account/update`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt(account),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data));
+    },
+    deleteAcc: (email) => {
+        return fetch(`${config.api}/account/update`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt({ email }),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data));
+    },
 };
 
 export default DataService;
