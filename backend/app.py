@@ -87,7 +87,7 @@ def update():
 
 # Gets active carpool offers given start and end cords
 # BODY: {startCord: {long, lat}, endCord: {long, lat}}
-@app.route("/offers")
+@app.route("/getoffers", methods = ['POST'])
 def getOffers():
     req = decrypt(request.get_json()['data'])
     start, end = req["startCord"], req["endCord"]
@@ -104,7 +104,7 @@ def getOffers():
 
 # Adds carpool offer given offerer email, start and end cords
 # BODY: {offerer, startCord: {long, lat}, endCord: {long, lat}}
-@app.route("/offers", methods = ['POST'])
+@app.route("/offer", methods = ['POST'])
 def addOffers():
     offers.append(decrypt(request.get_json()['data']))
     res = {'success': True}
@@ -115,7 +115,7 @@ def addOffers():
 
 # Gets requests made to offers for an offerer
 # BODY {offerer: email}
-@app.route("/requests/")
+@app.route("/getrequests", methods = ['POST'])
 def getRequests(offerer):
     req = decrypt(request.get_json()['data'])
     offerer = req['offerer']
@@ -129,7 +129,7 @@ def getRequests(offerer):
 
 # Adds request (interest to join carpool)
 # BODY: {requester:email, offerer:email}
-@app.route("/requests", methods = ['POST'])
+@app.route("/request", methods = ['POST'])
 def addRequests():
     requests.append(decrypt(request.get_json()['data']))
     res = {'success': True}
