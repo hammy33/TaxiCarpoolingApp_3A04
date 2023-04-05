@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
+
 import Slider from '@react-native-community/slider';
 
-export default function PersonalityTest() {
+export default function PersonalityTest({ navigation }) {
   const [musicValue, setMusicValue] = useState(0);
   const [pizzaValue, setPizzaValue] = useState(0);
   const [travelValue, setTravelValue] = useState(0);
@@ -15,6 +16,7 @@ export default function PersonalityTest() {
     console.log(`Travel value: ${travelValue}`);
     console.log(`Taxi value: ${taxiValue}`);
     console.log(`Sample value: ${sampleValue}`);
+    navigation.navigate('Home'); // Navigation call
   };
 
   return (
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       borderRadius: 5,
       alignSelf: 'center',
-      marginBottom: 40,
+      marginBottom: 20,
     },
     buttonText: {
       color: '#fff',

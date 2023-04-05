@@ -15,8 +15,8 @@ export default function Register({ navigation }) {
     console.log(`Email: ${email}`);
     console.log(`Phone: ${phone}`);
 
-    // Navigate to the Home screen
-    navigation.navigate('Home');
+    // Navigate to the Personality Test screen
+    navigation.navigate('PersonalityTest');
   };
 
   return (
