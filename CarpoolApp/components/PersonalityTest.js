@@ -29,7 +29,7 @@ export default function PersonalityTest({ navigation }) {
                 <Text style={styles.questionText}>How much do you like music in a ride?</Text>
                 <Slider
                     style={styles.slider}
-                    thumbTintColor='#1E1E24'
+                    thumbTintColor='#FFF'
                     maximumTrackTintColor='#1E1E24'
                     minimumTrackImage='#1E1E24'
                     minimumValue={0}
@@ -45,7 +45,7 @@ export default function PersonalityTest({ navigation }) {
                 <Text style={styles.questionText}>How much do you like pizza?</Text>
                 <Slider
                     style={styles.slider}
-                    thumbTintColor='#1E1E24'
+                    thumbTintColor='#FFF'
                     maximumTrackTintColor='#1E1E24'
                     minimumTrackImage='#1E1E24'
                     minimumValue={0}
@@ -61,7 +61,7 @@ export default function PersonalityTest({ navigation }) {
                 <Text style={styles.questionText}>Do you like travelling on the holidays?</Text>
                 <Slider
                     style={styles.slider}
-                    thumbTintColor='#1E1E24'
+                    thumbTintColor='#FFF'
                     maximumTrackTintColor='#1E1E24'
                     minimumTrackImage='#1E1E24'
                     minimumValue={0}
@@ -77,7 +77,7 @@ export default function PersonalityTest({ navigation }) {
                 <Text style={styles.questionText}>How often do you take taxis?</Text>
                 <Slider
                     style={styles.slider}
-                    thumbTintColor='#1E1E24'
+                    thumbTintColor='#FFF'
                     maximumTrackTintColor='#1E1E24'
                     minimumTrackImage='#1E1E24'
                     minimumValue={0}
@@ -93,7 +93,7 @@ export default function PersonalityTest({ navigation }) {
                 <Text style={styles.questionText}>Sample question?</Text>
                 <Slider
                     style={styles.slider}
-                    thumbTintColor='#1E1E24'
+                    thumbTintColor='#FFF'
                     maximumTrackTintColor='#1E1E24'
                     minimumTrackImage='#1E1E24'
                     minimumValue={0}
