@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import { Text, View, Button, StyleSheet, Linking } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner'
+import styles from '../styles/styles';
 
 export default function OfferCarpool() {
 
@@ -36,11 +37,3 @@ export default function OfferCarpool() {
         </View>
     )
 } 
-
-const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        flexDirection:'column',
-        justifyContent:'center'
-    }
-})
