@@ -1,46 +1,72 @@
-import React, {useState, useEffect } from 'react';
-import { Text, View, Button, StyleSheet, Linking } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner'
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import styles from '../styles/styles';
 
-export default function OfferCarpool() {
+export default function OfferCarpool({ navigation }) {
+  const [startPoint, setStartPoint] = useState('');
+  const [destination, setDestination] = useState('');
+  const [seats, setSeats] = useState('');
 
-    const [hasPermission, setHasPermission] = useState(null);
-    const [scanned, setScanned] = useState(false);
+  const handleRequest = () => {
+    // TODO: Handle ride request based on input values
+  };
 
-    useEffect(() => {
-        (async () => {
-            const { status } = await BarCodeScanner.requestPermissionsAsync();
-            setHasPermission(status === 'granted');
-        })();
-    }, []);
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
 
-    const handleBarCodeScanned = ({ type, data}) => {
-        setScanned(true);
-        alert(`Bar Code with Type and data ${Linking.openURL('${data}')} has been scanned`);
-    };
-
-    if (hasPermission === null) {
-        return <Text>Requesting for Camera Permission</Text>
+  const handleSeatsChange = (value) => {
+    // Only allow integer values for number of available seats
+    if (value === '' || /^[0-9]+$/.test(value)) {
+      setSeats(value);
     }
-    if (hasPermission === false) {
-        return <Text>No access to camera</Text>
-    }
-    return (
-        <View style={styles.container}>
-            <BarCodeScanner
-                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                style = {StyleSheet.absoluteFillObject}
-            />
-            {scanned && <Button title='Tap to Scan Aagain' onPress={() => setScanned(false)} />}
+  };
 
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Request a Ride</Text>
+
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionText}>Starting Point:</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={startPoint}
+            onChangeText={setStartPoint}
+          />
         </View>
-    )
-} 
+      </View>
 
-const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        flexDirection:'column',
-        justifyContent:'center'
-    }
-})
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionText}>Destination:</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={destination}
+            onChangeText={setDestination}
+          />
+        </View>
+      </View>
+
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionText}>Number of Available Seats:</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={seats}
+            onChangeText={handleSeatsChange}
+            keyboardType="numeric"
+          />
+        </View>
+      </View>
+
+      <TouchableOpacity style={styles.button} onPress={handleRequest}>
+        <Text style={styles.buttonText}>Request Ride</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={handleGoBack}>
+        <Text style={styles.buttonText}>Go Back</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
