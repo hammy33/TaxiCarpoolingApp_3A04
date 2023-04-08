@@ -13,19 +13,12 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
             <Image source={require('../assets/TaxiMateApp.png')} style={styles.homeLogo} />
             <View style={styles.homeContainer}>
-                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("OfferCarpool")}>
+                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("QRScanner")}>
                     <Text style={styles.homeButtonText}>Offer Carpool</Text>
                 </TouchableOpacity>
                 <Text> </Text>
                 <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("Request")}>
                     <Text style={styles.homeButtonText}>Request Carpool</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("OfferCarpool")}>
-                    <Text style={styles.homeButtonText}>Display QR Code</Text>
-                </TouchableOpacity>
-                <Text> </Text>
-                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("OfferCarpool")}>
-                    <Text style={styles.homeButtonText}> Scan QR Code</Text>
                 </TouchableOpacity>
             </View>
             
