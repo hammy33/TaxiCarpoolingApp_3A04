@@ -124,6 +124,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#F7EBE8',
   },
+  goBackButton: {
+    backgroundColor: '#2196F3',
+    borderRadius: 5,
+    padding: 10,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+  },
   });
 
 export default styles;

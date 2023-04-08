@@ -5,11 +5,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './components/Home';
 import Login from './components/Login';
 import OfferCarpool from './components/OfferCarpool';
+import QRScanner from './components/QRScanner.js';
 import PersonalityTest from './components/PersonalityTest';
 import Welcome from './components/Welcome';
 import Register from './components/Register';
 import Request from './components/Request';
 import Offers from './components/Offers';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -22,9 +24,9 @@ const MyStack = () => {
         <Stack.Screen name="Login" component={Login} options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="OfferCarpool" component={OfferCarpool} options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="PersonalityTest" component={PersonalityTest} options={navigationOptions={headerShown: false}} />
+        <Stack.Screen name="QRScanner" component={QRScanner} options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Register" component={Register}  options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Request" component={Request}/>
-        <Stack.Screen name="Offers" component={Offers}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
