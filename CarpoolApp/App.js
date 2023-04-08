@@ -10,7 +10,6 @@ import PersonalityTest from './components/PersonalityTest';
 import Welcome from './components/Welcome';
 import Register from './components/Register';
 import Request from './components/Request';
-import Offers from './components/Offers';
 
 
 const Stack = createNativeStackNavigator();
