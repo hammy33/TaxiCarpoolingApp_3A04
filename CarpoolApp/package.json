@@ -10,11 +10,13 @@
     },
     "dependencies": {
         "@react-native-community/masked-view": "^0.1.11",
+        "@react-native-community/slider": "^4.4.2",
         "@react-navigation/native": "^6.1.6",
         "@react-navigation/native-stack": "^6.9.12",
         "crypto-js": "^3.1.9-1",
         "dependencies": "^0.0.1",
         "expo": "~48.0.9",
+        "expo-barcode-scanner": "^12.3.2",
         "expo-status-bar": "~1.4.4",
         "react": "18.2.0",
         "react-native": "0.71.4",
