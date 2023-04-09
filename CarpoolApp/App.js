@@ -10,6 +10,7 @@ import PersonalityTest from './components/PersonalityTest';
 import Welcome from './components/Welcome';
 import Register from './components/Register';
 import Request from './components/Request';
+import Offers from './components/Offers';
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,8 @@ const MyStack = () => {
         <Stack.Screen name="QRScanner" component={QRScanner} options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Register" component={Register}  options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Request" component={Request}/>
+        <Stack.Screen name="Offers" component={Offers}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
