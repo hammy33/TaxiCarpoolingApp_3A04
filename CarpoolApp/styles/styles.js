@@ -137,6 +137,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  chest: {
+    width: 250,
+    height: 250,
+    marginTop: 20,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
   });
 
 export default styles;

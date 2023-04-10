@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback, SafeAreaView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../styles/styles';
 
@@ -8,8 +8,18 @@ export default function EndOfRide({ navigation }) {
     const handleSubmission = () => {
         navigation.navigate('Home'); // Navigation call
     };
-    
+
+    const rollRewards = () => {
+      if(isClosed) {
+        console.log("Rewards rolled")
+        setClosed(false)
+        setReward(Math.floor(Math.random() * 10) + 1)
+      }
+    }
+
+    const [reward, setReward] = useState(0);
     const [starRating, setStarRating] = useState(null);
+    const [isClosed, setClosed] = useState(true);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -52,6 +62,13 @@ export default function EndOfRide({ navigation }) {
             />
           </TouchableOpacity>
         </View>
+        <Image source={isClosed ? require('../assets/closed.png') : require('../assets/open.png')} style={styles.chest} />
+        <TouchableOpacity style={styles.homeButton} onPress={rollRewards}>
+            <Text style={styles.homeButtonText}>Get Reward</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("Home")}>
+            <Text style={styles.homeButtonText}>Go back to Home</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
