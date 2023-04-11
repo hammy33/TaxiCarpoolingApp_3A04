@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import styles from '../styles/styles';
 
 export default function Register({ navigation }) {
   const [firstName, setFirstName] = useState('');
@@ -72,44 +73,3 @@ export default function Register({ navigation }) {
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#aaa',
-    borderRadius: 5,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  input: {
-    flex: 1,
-    fontSize: 18,
-    paddingVertical: 10,
-    paddingLeft: 10,
-  },
-  button: {
-    backgroundColor: '#0066cc',
-    paddingHorizontal: 50,
-    paddingVertical: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
