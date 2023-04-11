@@ -8,14 +8,20 @@ export default function EndOfRide({ navigation }) {
 
     const handleSubmission = () => {
       // Calculates new rating for the other pooler
-      let poolerProfile = DataService.getAccount(poolerEmail)
-      let poolerRating = poolerProfile.rating
-      let poolerNumRatings = poolerProfile.numRatings
-      let newNumRatings = poolerNumRatings + 1;
-      let newRating = (poolerRating * poolerNumRatings + starRating) / newNumRatings
-      poolerProfile.numRatings = newNumRatings
-      poolerProfile.rating = newRating
-      DataService.updateAcc(poolerProfile)
+      if(starRating != undefined) {
+        let poolerEmail = "" 
+        let acc = DataService.getAccount(poolerEmail)
+        console.log(acc.rating)
+        if(!Number.isInteger(acc.rating) || !Number.isInteger(acc.numRating)) {
+          acc.rating = starRating
+          acc.numRating = 0
+        } else {
+          acc.rating = (acc.rating * acc.numRatings + starRating) / (acc.numRatings + 1)
+          acc.numRating += 1
+        }
+        DataService.updateAcc(acc)
+        console.log("Rating: " + DataService.getAccount(poolerEmail).rating + " Rating count: " + DataService.getAccount(poolerEmail).numRating)
+      }
       navigation.navigate('Home'); // Navigation call
     };
 
@@ -23,15 +29,18 @@ export default function EndOfRide({ navigation }) {
       if(isClosed) {
         console.log("Rewards rolled")
         setClosed(false)
-        setReward(Math.floor(Math.random() * 10) + 1)
+        let randomReward = Math.floor(Math.random() * 10) + 1
+        setReward(randomReward)
         let clientProfile = DataService.profile
-        clientProfile.rewards.push(reward)
+        console.log(randomReward)
+        clientProfile.rewards.push(randomReward)
         DataService.updateAcc(clientProfile)
+        console.log(DataService.profile.rewards)
       }
     }
 
-    const [reward, setReward] = useState(0);
-    const [starRating, setStarRating] = useState(null);
+    const [reward, setReward] = useState(null);
+    const [starRating, setStarRating] = useState(starRating);
     const [isClosed, setClosed] = useState(true);
 
   return (
