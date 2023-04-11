@@ -8,6 +8,7 @@ import OfferCarpool from './components/OfferCarpool';
 import PersonalityTest from './components/PersonalityTest';
 import Welcome from './components/Welcome';
 import Register from './components/Register';
+import Profile from './components/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const MyStack = () => {
         <Stack.Screen name="OfferCarpool" component={OfferCarpool} options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="PersonalityTest" component={PersonalityTest} options={navigationOptions={headerShown: false}} />
         <Stack.Screen name="Register" component={Register}  options={navigationOptions={headerShown: false}}/>
+        <Stack.Screen name="Profile" component={Profile}  options={navigationOptions={headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -81,6 +81,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#F7EBE8',
   },
+  profiletext: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#F7EBE8',
+  },
+  profileinput: {
+    borderWidth: 1,
+    borderColor: '#aaa',
+    borderRadius: 5,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
   });
 
 export default styles;
