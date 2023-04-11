@@ -63,8 +63,9 @@ const DataService = {
         })
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
-    updateAcc: (account) =>
-        fetch(`${config.api}/account/update`, {
+    updateAcc: (account) => {
+        DataService.profile = account;
+        return fetch(`${config.api}/account/update`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -72,7 +73,8 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data)),
+            .then((response) => decrypt(response.data));
+    },
     deleteAcc: (email) =>
         fetch(`${config.api}/account/update`, {
             method: "POST",
