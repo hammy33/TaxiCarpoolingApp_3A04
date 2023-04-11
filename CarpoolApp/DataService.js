@@ -86,6 +86,7 @@ const DataService = {
         })
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
+            
     // Add an offer after a scan of QR code
     addOffer: (
         offererEmail,
