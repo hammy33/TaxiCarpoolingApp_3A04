@@ -63,6 +63,16 @@ const DataService = {
         })
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
+    getAccount: (email) =>
+        fetch(`${config.api}/getaccount`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt({ email }),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data)),
     updateAcc: (account) => {
         DataService.profile = account;
         return fetch(`${config.api}/account/update`, {
