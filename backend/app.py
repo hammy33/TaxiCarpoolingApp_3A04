@@ -74,6 +74,14 @@ def login():
         return jsonify({'data': encrypt(res)})
     return "Record not found", 400
 
+# Get Account
+# BODY: {email}
+@app.route("/getaccount", methods = ['POST'])
+def login():
+    req = decrypt(request.get_json()['data'])
+    email = req["email"]
+    return jsonify({'data': encrypt(getAccount(email))})
+
 
 # Update account
 # BODY: {data: Account}
