@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#F7EBE8',
+    bottom: 5,
   },
   profileinput: {
     borderWidth: 1,
