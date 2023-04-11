@@ -28,6 +28,7 @@ const MyStack = () => {
         <Stack.Screen name="Register" component={Register}  options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Request" component={Request}/>
         <Stack.Screen name="EndOfRide" component={EndOfRide} options={navigationOptions={headerShown: false}}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );

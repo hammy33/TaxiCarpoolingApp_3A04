@@ -27,9 +27,25 @@ const decrypt = (message) => {
 };
 
 const DataService = {
+    profile: {
+        email: "",
+        password: "",
+        name: "",
+        rating: 0,
+        numRatings: 0,
+        personality: {
+            p1: 0,
+            p2: 0,
+            p3: 0,
+            p4: 0,
+            p5: 0,
+        },
+        rewards: [],
+    },
     // ACCOUNTS
-    register: (account) =>
-        fetch(`${config.api}/register`, {
+    register: (account) => {
+        DataService.profile = account;
+        return fetch(`${config.api}/register`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -37,8 +53,13 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
+<<<<<<< HEAD
             .then((response) => decrypt(response.data))
             .then((response) => clientAccount = response),
+=======
+            .then((response) => decrypt(response.data));
+    },
+>>>>>>> origin/main
     login: (email, password) =>
         fetch(`${config.api}/login`, {
             method: "POST",
@@ -49,8 +70,19 @@ const DataService = {
         })
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
-    updateAcc: (account) =>
-        fetch(`${config.api}/account/update`, {
+    getAccount: (email) =>
+        fetch(`${config.api}/getaccount`, {
+            method: "POST",
+            headers: config.headers,
+            body: JSON.stringify({
+                data: encrypt({ email }),
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => decrypt(response.data)),
+    updateAcc: (account) => {
+        DataService.profile = account;
+        return fetch(`${config.api}/account/update`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -58,7 +90,8 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data)),
+            .then((response) => decrypt(response.data));
+    },
     deleteAcc: (email) =>
         fetch(`${config.api}/account/update`, {
             method: "POST",
@@ -89,6 +122,7 @@ const DataService = {
         })
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
+
     // Add an offer after a scan of QR code
     addOffer: (
         offererEmail,
