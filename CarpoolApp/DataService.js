@@ -8,8 +8,6 @@ const config = {
     },
 };
 
-var clientAccount = "";
-
 const encrypt = (jsonData) => {
     const key = CryptoJS.enc.Utf8.parse("AAAAAAAAAAAAAAAA"); //key used in Python
     const encrypted = CryptoJS.AES.encrypt(JSON.stringify(jsonData), key, {
