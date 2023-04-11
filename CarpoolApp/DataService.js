@@ -53,13 +53,8 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-<<<<<<< HEAD
-            .then((response) => decrypt(response.data))
-            .then((response) => clientAccount = response),
-=======
             .then((response) => decrypt(response.data));
     },
->>>>>>> origin/main
     login: (email, password) =>
         fetch(`${config.api}/login`, {
             method: "POST",
