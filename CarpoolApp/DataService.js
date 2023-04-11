@@ -25,9 +25,25 @@ const decrypt = (message) => {
 };
 
 const DataService = {
+    profile: {
+        email: "",
+        password: "",
+        name: "",
+        rating: 0,
+        numRatings: 0,
+        personality: {
+            p1: 0,
+            p2: 0,
+            p3: 0,
+            p4: 0,
+            p5: 0,
+        },
+        rewards: [],
+    },
     // ACCOUNTS
-    register: (account) =>
-        fetch(`${config.api}/register`, {
+    register: (account) => {
+        DataService.profile = account;
+        return fetch(`${config.api}/register`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -35,7 +51,8 @@ const DataService = {
             }),
         })
             .then((response) => response.json())
-            .then((response) => decrypt(response.data)),
+            .then((response) => decrypt(response.data));
+    },
     login: (email, password) =>
         fetch(`${config.api}/login`, {
             method: "POST",
@@ -86,7 +103,7 @@ const DataService = {
         })
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
-            
+
     // Add an offer after a scan of QR code
     addOffer: (
         offererEmail,
