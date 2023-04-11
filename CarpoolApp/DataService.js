@@ -181,15 +181,12 @@ const DataService = {
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
     // Get active carpool given offerer + requester
-    getCarpool: (offererEmail, requesterEmail) =>
+    getCarpool: (email) =>
         fetch(`${config.api}/carpools`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
-                data: encrypt({
-                    offerer: offererEmail,
-                    requester: requesterEmail,
-                }),
+                data: encrypt({ email }),
             }),
         })
             .then((response) => response.json())

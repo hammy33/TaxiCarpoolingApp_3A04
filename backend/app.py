@@ -198,12 +198,12 @@ def acceptRequest(offerer):
 # Get active carpool given offerer + requester
 # BODY {offerer: email, requester: email}
 @app.route("/carpools", methods = ['POST'])
-def getCarpool(offerer):
+def getCarpool():
     req = decrypt(request.get_json()['data'])
-    offerer, requester = req['offerer'], req['requester']
+    email = req['email']
 
     for carpool in carpools:
-        if carpool['active'] and carpool['offerer'] == offerer and carpool['requester'] == requester:
+        if carpool['active'] and email in carpool['carpoolers']:
             return jsonify({'data': encrypt(carpool)})
     
     return "Record not found", 400
