@@ -137,9 +137,9 @@ def getRequests():
     req = decrypt(request.get_json()['data'])
     offerer = req['offerer']
     offerRequests = []
-    for request in requests:
-        if request['offerer'] == offerer:
-            offerRequests.append(request)
+    for rq in requests:
+        if rq['offerer'] == offerer:
+            offerRequests.append(rq)
 
     res = offerRequests
     return jsonify({'data': encrypt(res)})
@@ -163,9 +163,9 @@ def acceptRequest(offerer):
     confirmedRequest = None
     confirmedOffer = None
 
-    for idx, request in enumerate(requests):
-        if request['offerer'] == offerer and request['requester'] == requester:
-            confirmedRequest = request
+    for idx, rq in enumerate(requests):
+        if rq['offerer'] == offerer and rq['requester'] == requester:
+            confirmedRequest = rq
             requests.pop(idx) # Delete the request
             break
     if not confirmedRequest: # No request from requester to offerer
