@@ -11,6 +11,7 @@ import Welcome from './components/Welcome';
 import Register from './components/Register';
 import Request from './components/Request';
 import EndOfRide from './components/EndOfRide.js';
+import WaitForOffer from './components/WaitForOffer';
 
 
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,9 @@ const MyStack = () => {
         <Stack.Screen name="QRScanner" component={QRScanner} options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Register" component={Register}  options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Request" component={Request}/>
+        <Stack.Screen name="Waiting" component={WaitForOffer}/>
         <Stack.Screen name="EndOfRide" component={EndOfRide} options={navigationOptions={headerShown: false}}/>
+
 
       </Stack.Navigator>
     </NavigationContainer>

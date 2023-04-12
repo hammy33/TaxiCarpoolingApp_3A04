@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#aaa',
     borderRadius: 5,
@@ -116,7 +117,10 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 18,
     paddingVertical: 10,
-    paddingLeft: 10,
+    paddingHorizontal: 20,
+    alignContent: 'center',
+    textAlign: 'center',
+    minWidth: 200,
   },
   title: {
     fontSize: 32,

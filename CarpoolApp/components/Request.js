@@ -6,6 +6,7 @@ import DataService from '../DataService';
 export default function Request({ navigation }) {
   const [start, setStart] = useState('');
   const [destination, setDestination] = useState('');
+  const [email, setEmail] = useState('');
 
 
   const handleSubmission = () => {
@@ -15,7 +16,7 @@ export default function Request({ navigation }) {
     console.log(`Destination: ${destination}`);
 
     // Navigate to the Personality Test screen
-    navigation.navigate('Offers', {start: start,  end: destination});
+    navigation.navigate('Waiting');
     return;
   };
 
@@ -23,6 +24,16 @@ export default function Request({ navigation }) {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <Text style={styles.title}>Request a carpool</Text>
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your email"
+            placeholderTextColor="#aaa"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+        </View>
 
         <View style={styles.inputContainer}>
           <TextInput
