@@ -1,18 +1,19 @@
 import React from "react";
 import styles from "../styles/styles";
-import {Text, View, Alert, TextInput, TouchableOpacity, Image} from "react-native";
+import {Text, View, Alert, TextInput, TouchableOpacity, Image, Modal} from "react-native";
 import DataService from '../DataService';
 
 const Profile = ({ navigation }) => {
-    let customerEmail = "" 
-    
-    DataService.getAccount(customerEmail).then((account) => {account}).catch((error) => {console.log("Cannot retrieve account")});
-
+    // DataService.getAccount(customerEmail).then((account) => {account}).catch((error) => {console.log("Cannot retrieve account")});
+    account = DataService.profile
     const [name, setName] = React.useState(account.name);
     const [email, setEmail] = React.useState(account.email);
     const [password, setPassword] = React.useState(account.password);
     const rating = account.rating;
     const rewards = account.rewards;
+
+    const [isVisible, setIsVisible] = React.useState(false);
+    const toggleModal = () => { setIsVisible(!isVisible);};
 
     const handleDeleteAccount = () => {
         DataService.deleteAcc(account.email)
@@ -22,7 +23,7 @@ const Profile = ({ navigation }) => {
         .catch(error => {
             console.error("Failed to delete account", error);
         });
-        navigation.navigate('Home');
+        navigation.navigate('Welcome');
     };
 
     const confirmDelete = () => {
@@ -34,30 +35,31 @@ const Profile = ({ navigation }) => {
             },
             {
                 text: 'OK',
-                onPress: () => handleDeleteAccount
-            },
-        ]);
-    };
-
-    const handleRewards = () => {
-        Alert.alert('Rewards', rewards, [
-            {
-                text: 'OK',
-                style: 'OK',
+                onPress: () => handleDeleteAccount,
             },
         ]);
     };
 
     const handleSave = () => {
-        const updatedAccount = {
-            name: name,
-            email: email,
-            password: password,
-        }
+        // const updatedAccount = {
+        //     name: name,
+        //     email: email,
+        //     password: password,
+        // }
 
-        DataService.updateAcc(updatedAccount)
+        account.name = name
+        account.email = email
+        account.password = password
+
+        DataService.updateAcc(account)
         .then(response => {
             console.log("Account updated successfully", response);
+            Alert.alert('Save Successful', [
+                {
+                    text: 'OK',
+                    style: 'OK',
+                },
+            ]);
         })
         .catch(error => {
             console.error("Account update failed", error);
@@ -95,16 +97,6 @@ const Profile = ({ navigation }) => {
             <View style={styles.profileinput}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Phone Number"
-                    onChangeText={setNumber}
-                    value={number}
-                    keyboardType="numeric"
-                />
-            </View>
-
-            <View style={styles.profileinput}>
-                <TextInput
-                    style={styles.input}
                     placeholder="Email"
                     onChangeText={setEmail}
                     value={email}
@@ -127,11 +119,28 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
 
             <Text style={styles.profiletext}>Rewards</Text>
-            <TouchableOpacity style={styles.button} onPress={handleRewards}>
-                <Text style={styles.buttonText}>View</Text>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity style={styles.button} onPress={toggleModal}>
+                    <Text style={styles.buttonText}>View</Text>
+                </TouchableOpacity>
+                <Modal
+                visible={isVisible}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={toggleModal}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ backgroundColor: 'white', padding: 20 }}>
+                            <Text style={{fontWeight: 'bold', fontSize: 18,}}>Rewards</Text>
+                            <Text>{rewards}</Text>
+                            <TouchableOpacity onPress={toggleModal}>
+                                <Text style={{alignSelf: 'center', top: 5, fontWeight: 'bold'}}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
 
-            <TouchableOpacity style={{backgroundColor: '#1E1E24', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 5, marginBottom: 20, minWidth: 200,borderWidth: 1, borderColor: '#FFF',}} onPress={handleSave}>
+            <TouchableOpacity style={{backgroundColor: '#1E1E24', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 5, marginBottom: 20, minWidth: 350,borderWidth: 1, borderColor: '#FFF',}} onPress={handleSave}>
                 <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
 
