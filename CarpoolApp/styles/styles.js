@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#444140'
   },
+  heading:{
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    alignSelf: 'center',
+    color: '#F7EBE8',
+  },
   homeContainer: {
     alignSelf:'center', 
     flex: 1, 
