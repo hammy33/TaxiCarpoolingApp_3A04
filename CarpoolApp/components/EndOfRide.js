@@ -6,6 +6,8 @@ import DataService from '../DataService';
 
 export default function EndOfRide({ navigation }) {
 
+  const fare = 20;
+
     const handleSubmission = () => {
       // Calculates new rating for the other pooler
       if(starRating != undefined) {
@@ -63,7 +65,7 @@ export default function EndOfRide({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.heading}>Your fare is: </Text>
+        <Text style={styles.heading}>Your fare is: ${fare}`</Text>
         <Text style={styles.heading}>{starRating ? `${starRating}*` : 'Tap to rate'}</Text>
         <View style={styles.stars}>
           <TouchableOpacity onPress={() => setStarRating(1)}>
