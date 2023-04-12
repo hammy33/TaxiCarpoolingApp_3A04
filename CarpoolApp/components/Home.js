@@ -24,6 +24,9 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("EndOfRide")}>
                     <Text style={styles.homeButtonText}>End Of Ride Test</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("Profile")}>
+                    <Text style={styles.homeButtonText}>Profile</Text>
+                </TouchableOpacity>
             </View>
             
         </View>

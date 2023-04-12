@@ -129,6 +129,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#F7EBE8',
   },
+  profiletext: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#F7EBE8',
+    bottom: 5,
+  },
+  profileinput: {
+    borderWidth: 1,
+    borderColor: '#aaa',
+    borderRadius: 5,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
   goBackButton: {
     backgroundColor: '#2196F3',
     borderRadius: 5,
