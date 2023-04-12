@@ -6,7 +6,7 @@ import DataService from '../DataService';
 
 
 export default function OfferCarpool({ navigation, route }) {
-  const { carInfo } = route.params;
+  const carInfo = {name:"John Smith",model:"Toyota Camry",color: "Red"};
   const [startPoint, setStartPoint] = useState('');
   const [destination, setDestination] = useState('');
   const [seats, setSeats] = useState('');
@@ -14,6 +14,7 @@ export default function OfferCarpool({ navigation, route }) {
   LocationIQ.init("dec43a4fbe212b");
   
   const handleRequest = () => {
+    
     LocationIQ.search(startPoint).then(
       startResponse => {
         const startCordLong = Number(startResponse[0].lon);
@@ -34,7 +35,7 @@ export default function OfferCarpool({ navigation, route }) {
               endCordLat
             ).then(response => {
               console.log(startCordLong, startCordLat, endCordLat, endCordLong);
-              navigation.navigate('WaitingToAcceptOffer', { carInfo: carInfo }); 
+              navigation.navigate('WaitingToAcceptOffer', {name:null}); 
             }).catch(error => {
               console.error(error);
             });
