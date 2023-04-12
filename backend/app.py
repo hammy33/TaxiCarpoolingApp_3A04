@@ -77,7 +77,7 @@ def login():
 # Get Account
 # BODY: {email}
 @app.route("/getaccount", methods = ['POST'])
-def login():
+def getaccount():
     req = decrypt(request.get_json()['data'])
     email = req["email"]
     return jsonify({'data': encrypt(getAccount(email))})
@@ -133,7 +133,7 @@ def addOffers():
 # Gets requests made to offers for an offerer
 # BODY {offerer: email}
 @app.route("/getrequests", methods = ['POST'])
-def getRequests(offerer):
+def getRequests():
     req = decrypt(request.get_json()['data'])
     offerer = req['offerer']
     offerRequests = []
@@ -198,12 +198,12 @@ def acceptRequest(offerer):
 # Get active carpool given offerer + requester
 # BODY {offerer: email, requester: email}
 @app.route("/carpools", methods = ['POST'])
-def getCarpool(offerer):
+def getCarpool():
     req = decrypt(request.get_json()['data'])
-    offerer, requester = req['offerer'], req['requester']
+    email = req['email']
 
     for carpool in carpools:
-        if carpool['active'] and carpool['offerer'] == offerer and carpool['requester'] == requester:
+        if carpool['active'] and email in carpool['carpoolers']:
             return jsonify({'data': encrypt(carpool)})
     
     return "Record not found", 400
@@ -212,12 +212,12 @@ def getCarpool(offerer):
 # End carpool given offerer + requester
 # BODY {offerer: email, requester: email}
 @app.route("/endcarpool", methods = ['POST'])
-def endCarpool(offerer):
+def endCarpool():
     req = decrypt(request.get_json()['data'])
-    offerer, requester = req['offerer'], req['requester']
+    email = req['email']
   
     for carpool in carpools:
-        if carpool['active'] and carpool['offerer'] == offerer and carpool['requester'] == requester:
+        if email in carpool['carpoolers']:
             carpool['active'] = False
             return jsonify({'data': encrypt(carpool)})
 

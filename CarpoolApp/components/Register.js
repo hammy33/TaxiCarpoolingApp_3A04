@@ -1,23 +1,48 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import styles from '../styles/styles';
+import DataService from '../DataService';
 
 export default function Register({ navigation }) {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmission = () => {
-    // Do something with the user's input, e.g. send it to a server
-    // and navigate to another screen
-    console.log(`First Name: ${firstName}`);
-    console.log(`Last Name: ${lastName}`);
-    console.log(`Email: ${email}`);
-    console.log(`Phone: ${phone}`);
-
-    // Navigate to the Personality Test screen
-    navigation.navigate('PersonalityTest');
+    if (!name) {
+        alert('Error: Your name is not filled in, please try again.');
+        return;
+    }
+    if (!email || !email.includes('@') || !email.includes('.')) {
+        alert('Error: Email Address not valid');
+        return;
+    }
+    if (!password || password.length < 6 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+        alert('Password is not strong enough, must contain at least 6 characters and be composed of both numbers and letters');
+        return;
+    }
+    const newProfile = {
+      email: email,
+      password: password,
+      name: name,
+      rating: 0,
+      numRatings: 0,
+      personality: {
+          p1: 0,
+          p2: 0,
+          p3: 0,
+          p4: 0,
+          p5: 0,
+      },
+      rewards: [],
+    }
+    DataService.register(newProfile)
+      .then((response) => {
+        navigation.navigate('PersonalityTest');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -28,20 +53,10 @@ export default function Register({ navigation }) {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="First Name"
+            placeholder="Name"
             placeholderTextColor="#aaa"
-            value={firstName}
-            onChangeText={(text) => setFirstName(text)}
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Last Name"
-            placeholderTextColor="#aaa"
-            value={lastName}
-            onChangeText={(text) => setLastName(text)}
+            value={name}
+            onChangeText={(text) => setName(text)}
           />
         </View>
 
@@ -58,11 +73,10 @@ export default function Register({ navigation }) {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Phone Number"
+            placeholder="Password"
             placeholderTextColor="#aaa"
-            keyboardType="numeric"
-            value={phone}
-            onChangeText={(text) => setPhone(text)}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
           />
         </View>
 
