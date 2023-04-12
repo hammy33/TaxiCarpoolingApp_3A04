@@ -16,12 +16,10 @@ const MapScreen = ({ navigation }) => {
     const [destination, setDestination] = useState({ long: 0, lat: 0 });
 
     const handleEnd = () => {
-        console.log("here22");
-
         DataService.endCarpool(DataService.profile.email)
-            .then((res) => {
+            .then(() => {
                 active = false;
-                navigation.navigate("Home");
+                navigation.navigate("EndOfRide");
             })
             .catch((err) => console.log(err));
     };
@@ -36,16 +34,16 @@ const MapScreen = ({ navigation }) => {
                         setDestination(res.endCord);
                         if (res.active === false) {
                             active = false;
-                            navigation.navigate("Home");
+                            navigation.navigate("EndOfRide");
                         }
                     })
                     .catch((err) => {
                         active = false;
-                        navigation.navigate("Home");
+                        navigation.navigate("Welcome");
                         console.log(err);
                     });
             } else {
-                navigation.navigate("Home");
+                navigation.navigate("EndOfRide");
             }
         }, 5000);
         return () => clearInterval(interval);
