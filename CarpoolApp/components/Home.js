@@ -21,10 +21,7 @@ const HomeScreen = ({ navigation }) => {
                     <Text style={styles.homeButtonText}>Request Carpool</Text>
                 </TouchableOpacity>
                 <Text> </Text>
-                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("EndOfRide")}>
-                    <Text style={styles.homeButtonText}>End Of Ride Test</Text>
-                </TouchableOpacity>
-                <Text> </Text>
+
                 <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("OfferCarpool", {name:"John Smith",model:"Toyota Camry",color: "Red"})}>
                     <Text style={styles.homeButtonText}>OfferCarpoolTest</Text>
                 </TouchableOpacity>

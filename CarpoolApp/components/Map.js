@@ -39,7 +39,7 @@ const MapScreen = ({ navigation }) => {
                     })
                     .catch((err) => {
                         active = false;
-                        navigation.navigate("Welcome");
+                        navigation.navigate("EndOfRide");
                         console.log(err);
                     });
             } else {
