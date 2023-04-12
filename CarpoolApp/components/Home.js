@@ -20,6 +20,10 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("Request")}>
                     <Text style={styles.homeButtonText}>Request Carpool</Text>
                 </TouchableOpacity>
+                <Text> </Text>
+                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("EndOfRide")}>
+                    <Text style={styles.homeButtonText}>End Of Ride Test</Text>
+                </TouchableOpacity>
             </View>
             
         </View>

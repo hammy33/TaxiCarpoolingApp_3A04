@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
     backgroundColor: '#444140'
@@ -144,6 +145,17 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 0,
+  },
+  stars: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  chest: {
+    width: 250,
+    height: 250,
+    marginTop: 20,
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   });
 

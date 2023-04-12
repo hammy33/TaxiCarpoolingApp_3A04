@@ -11,6 +11,7 @@ import Welcome from './components/Welcome';
 import Register from './components/Register';
 import Profile from './components/Profile';
 import Request from './components/Request';
+import EndOfRide from './components/EndOfRide.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ const MyStack = () => {
         <Stack.Screen name="Register" component={Register}  options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Profile" component={Profile}  options={navigationOptions={headerShown: false}}/>
         <Stack.Screen name="Request" component={Request}/>
+        <Stack.Screen name="EndOfRide" component={EndOfRide} options={navigationOptions={headerShown: false}}/>
 
       </Stack.Navigator>
     </NavigationContainer>
