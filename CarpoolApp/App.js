@@ -14,6 +14,7 @@ import EndOfRide from "./components/EndOfRide.js";
 import WaitForOffer from "./components/WaitForOffer";
 import Map from "./components/Map";
 import Profile from "./components/Profile";
+import WaitingToAcceptOffer from "./components/WaitingToAcceptOffer"
 
 const Stack = createNativeStackNavigator();
 
@@ -71,6 +72,11 @@ const MyStack = () => {
                 <Stack.Screen
                     name="Profile"
                     component={Profile}
+                />
+                <Stack.Screen
+                    name="WaitingToAcceptOffer"
+                    component={WaitingToAcceptOffer}
+                    options={(navigationOptions = { headerShown: false })}
                 />
             </Stack.Navigator>
         </NavigationContainer>

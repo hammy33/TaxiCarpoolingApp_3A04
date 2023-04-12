@@ -5,7 +5,8 @@ import LocationIQ from 'react-native-locationiq';
 import DataService from '../DataService';
 
 
-export default function OfferCarpool({ navigation }) {
+export default function OfferCarpool({ navigation, route }) {
+  const { carInfo } = route.params;
   const [startPoint, setStartPoint] = useState('');
   const [destination, setDestination] = useState('');
   const [seats, setSeats] = useState('');
@@ -33,7 +34,7 @@ export default function OfferCarpool({ navigation }) {
               endCordLat
             ).then(response => {
               console.log(startCordLong, startCordLat, endCordLat, endCordLong);
-              navigation.navigate('WaitingToAcceptOffer'); 
+              navigation.navigate('WaitingToAcceptOffer', { carInfo: carInfo }); 
             }).catch(error => {
               console.error(error);
             });
@@ -62,7 +63,7 @@ export default function OfferCarpool({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Request a Ride</Text>
+      <Text style={styles.title}>Offer a Ride</Text>
 
       <View style={styles.questionContainer}>
         <Text style={styles.questionText}>Starting Point:</Text>
@@ -99,7 +100,7 @@ export default function OfferCarpool({ navigation }) {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleRequest}>
-        <Text style={styles.buttonText}>Request Ride</Text>
+        <Text style={styles.buttonText}>Offer Ride</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={handleGoBack}>
