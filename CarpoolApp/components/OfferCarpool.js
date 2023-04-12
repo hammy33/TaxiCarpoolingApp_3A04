@@ -1,14 +1,52 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from '../styles/styles';
+import LocationIQ from 'react-native-locationiq';
+import DataService from '../DataService';
+
 
 export default function OfferCarpool({ navigation }) {
   const [startPoint, setStartPoint] = useState('');
   const [destination, setDestination] = useState('');
   const [seats, setSeats] = useState('');
 
+  LocationIQ.init("dec43a4fbe212b");
+  
   const handleRequest = () => {
-    // TODO: Handle ride request based on input values
+    LocationIQ.search(startPoint).then(
+      startResponse => {
+        const startCordLong = Number(startResponse[0].lon);
+        const startCordLat = Number(startResponse[0].lat);
+  
+        // Convert destination to coordinates
+        LocationIQ.search(destination).then(
+          destResponse => {
+            const endCordLong = Number(destResponse[0].lon);
+            const endCordLat = Number(destResponse[0].lat);
+  
+            // Call addOffer function with coordinates
+            DataService.addOffer(
+              DataService.profile.email,
+              startCordLong,
+              startCordLat,
+              endCordLong,
+              endCordLat
+            ).then(response => {
+              console.log(startCordLong, startCordLat, endCordLat, endCordLong);
+              navigation.navigate('WaitingToAcceptOffer'); 
+            }).catch(error => {
+              console.error(error);
+            });
+          },
+          destError => {
+            console.error(destError);
+          }
+        );
+      },
+      startError => {
+        console.error(startError);
+      }
+    );
   };
 
   const handleGoBack = () => {
