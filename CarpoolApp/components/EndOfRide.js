@@ -9,18 +9,35 @@ export default function EndOfRide({ navigation }) {
     const handleSubmission = () => {
       // Calculates new rating for the other pooler
       if(starRating != undefined) {
-        let poolerEmail = "" 
-        let acc = DataService.getAccount(poolerEmail)
-        console.log(acc.rating)
-        if(!Number.isInteger(acc.rating) || !Number.isInteger(acc.numRating)) {
-          acc.rating = starRating
-          acc.numRating = 0
-        } else {
-          acc.rating = (acc.rating * acc.numRatings + starRating) / (acc.numRatings + 1)
-          acc.numRating += 1
+        // Gets carpool
+        let carpool
+        DataService.getCarpool(DataService.profile.email).then((res) =>
+          carpool = res
+        )
+        console.log(carpool)
+        let poolerEmail = "";
+        // Chooses correct carpooler
+        if(carpool != undefined) {
+          if(carpool.carpoolers[0] == DataService.profile.email) {
+            poolerEmail = carpool.carpooler[1]
+          } else {
+            poolerEmail = carpool.carpooler[0]
+          }
+          let acc = null
+          DataService.getAccount(poolerEmail).then((res) =>
+            acc = res
+          )
+          console.log(acc.rating)
+          if(!Number.isInteger(acc.rating) || !Number.isInteger(acc.numRating)) {
+            acc.rating = starRating
+            acc.numRating = 0
+          } else {
+            acc.rating = (acc.rating * acc.numRatings + starRating) / (acc.numRatings + 1)
+            acc.numRating += 1
+          }
+          DataService.updateAcc(acc)
+          console.log("Rating: " + DataService.getAccount(poolerEmail).rating + " Rating count: " + DataService.getAccount(poolerEmail).numRating)
         }
-        DataService.updateAcc(acc)
-        console.log("Rating: " + DataService.getAccount(poolerEmail).rating + " Rating count: " + DataService.getAccount(poolerEmail).numRating)
       }
       navigation.navigate('Home'); // Navigation call
     };
