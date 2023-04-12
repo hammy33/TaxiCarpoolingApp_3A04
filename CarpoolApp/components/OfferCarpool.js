@@ -32,7 +32,8 @@ export default function OfferCarpool({ navigation }) {
               endCordLong,
               endCordLat
             ).then(response => {
-              console.log(response);
+              console.log(startCordLong, startCordLat, endCordLat, endCordLong);
+              navigation.navigate('WaitingToAcceptOffer'); 
             }).catch(error => {
               console.error(error);
             });

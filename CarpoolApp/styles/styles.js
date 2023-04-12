@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     textAlign: 'center',
     minWidth: 200,
+    color: '#fff',
   },
   title: {
     fontSize: 32,
