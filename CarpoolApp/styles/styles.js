@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     textAlign: 'center',
     minWidth: 200,
+    color: '#fff',
   },
   title: {
     fontSize: 32,
@@ -160,6 +161,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignSelf: 'center',
     marginBottom: 20,
+  },
+  waitText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#ffff'
+  },
+  waitTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    alignSelf: 'center',
+    color: '#F7EBE8',
   },
   });
 

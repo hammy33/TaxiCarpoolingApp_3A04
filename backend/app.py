@@ -67,6 +67,8 @@ def login():
 
     res = False
     account = getAccount(email)
+    if account == None:
+        return "Record not found", 400
     if password == account["password"]:
         res = account 
 
@@ -137,9 +139,11 @@ def getRequests():
     req = decrypt(request.get_json()['data'])
     offerer = req['offerer']
     offerRequests = []
-    for request in requests:
-        if request['offerer'] == offerer:
-            offerRequests.append(request)
+    for rq in requests:
+        if rq['offerer'] == offerer:
+            rq['requesterName'] = getAccount(rq['requester'])['name']
+            rq['personality'] = getAccount(rq['requester'])['personality']
+            offerRequests.append(rq)
 
     res = offerRequests
     return jsonify({'data': encrypt(res)})
@@ -163,9 +167,9 @@ def acceptRequest(offerer):
     confirmedRequest = None
     confirmedOffer = None
 
-    for idx, request in enumerate(requests):
-        if request['offerer'] == offerer and request['requester'] == requester:
-            confirmedRequest = request
+    for idx, rq in enumerate(requests):
+        if rq['offerer'] == offerer and rq['requester'] == requester:
+            confirmedRequest = rq
             requests.pop(idx) # Delete the request
             break
     if not confirmedRequest: # No request from requester to offerer
