@@ -139,6 +139,8 @@ def getRequests():
     offerRequests = []
     for rq in requests:
         if rq['offerer'] == offerer:
+            rq['requesterName'] = getAccount(rq['requester'])['name']
+            rq['personality'] = getAccount(rq['requester'])['personality']
             offerRequests.append(rq)
 
     res = offerRequests
