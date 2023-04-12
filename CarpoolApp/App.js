@@ -13,6 +13,7 @@ import Request from "./components/Request";
 import EndOfRide from "./components/EndOfRide.js";
 import WaitForOffer from "./components/WaitForOffer";
 import Map from "./components/Map";
+import Profile from "./components/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,11 @@ const MyStack = () => {
                 <Stack.Screen
                     name="Map"
                     component={Map}
+                    options={(navigationOptions = { headerShown: false })}
+                />
+                <Stack.Screen
+                    name="Profile"
+                    component={Profile}
                     options={(navigationOptions = { headerShown: false })}
                 />
             </Stack.Navigator>
