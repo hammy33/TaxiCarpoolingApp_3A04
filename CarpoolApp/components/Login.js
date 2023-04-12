@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Alert, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import styles from '../styles/styles';
+import DataService from '../DataService';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmission = () => {
-    // Here you would handle the login submission
-    // For now, we'll just navigate to the Home screen
-    navigation.navigate('Home');
+    DataService.login(email, password)
+      .then(token => {
+        navigation.navigate('Home');
+      })
+      .catch(error => {
+        Alert.alert('Error', 'Incorrect email/password combination. Please try again.', [
+          { text: 'OK', onPress: () => {} }
+        ]);
+      });
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, { flex: 1 }]}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { flex: 1 }]}
             multiline={true} 
             placeholder="Email"
             placeholderTextColor="#aaaaaa"
@@ -29,9 +36,9 @@ export default function Login({ navigation }) {
           />
         </View>
         
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, { flex: 1 }]}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { flex: 1 }]}
             multiline={true} 
             placeholder="Password"
             placeholderTextColor="#aaaaaa"
