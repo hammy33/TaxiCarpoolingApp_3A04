@@ -54,16 +54,12 @@ const Profile = ({ navigation }) => {
         DataService.updateAcc(account)
         .then(response => {
             console.log("Account updated successfully", response);
-            Alert.alert('Save Successful', [
-                {
-                    text: 'OK',
-                    style: 'OK',
-                },
-            ]);
+            Alert.alert(null, 'Changes saved!');
         })
         .catch(error => {
             console.error("Account update failed", error);
         });
+        navigation.navigate('Home')
     };
 
     return (
@@ -140,7 +136,7 @@ const Profile = ({ navigation }) => {
                 </Modal>
             </View>
 
-            <TouchableOpacity style={{backgroundColor: '#1E1E24', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 5, marginBottom: 20, minWidth: 350,borderWidth: 1, borderColor: '#FFF',}} onPress={handleSave}>
+            <TouchableOpacity style={styles.button} onPress={handleSave}>
                 <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
 

@@ -5,7 +5,7 @@ import styles from "../styles/styles";
 const HomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate("OfferCarpool")} style={{position: 'absolute', top: 30, right: 30, }}>
+            <TouchableOpacity onPress={() => navigation.navigate("Profile")} style={{position: 'absolute', top: 30, right: 30, }}>
                 <Image source={require('../assets/profile.png')} style={styles.profileImage}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Welcome")} style={{position: 'absolute', top: 30, left: 30, }}>
@@ -24,11 +24,8 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("EndOfRide")}>
                     <Text style={styles.homeButtonText}>End Of Ride Test</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate("Profile")}>
-                    <Text style={styles.homeButtonText}>Profile</Text>
-                </TouchableOpacity>
+                <Text> </Text>
             </View>
-            
         </View>
     );
 };

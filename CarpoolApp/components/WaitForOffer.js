@@ -10,7 +10,7 @@ export default function WaitForOffer({ navigation }) {
         console.log('this worked')
         DataService.getOffersForRequester(1, 1, 1, 1).then((res) =>
             {if (res != null){
-                //navigate to the your carpool has been found!
+                console.log(res)
             }
             }
         );

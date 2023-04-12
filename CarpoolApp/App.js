@@ -71,7 +71,6 @@ const MyStack = () => {
                 <Stack.Screen
                     name="Profile"
                     component={Profile}
-                    options={(navigationOptions = { headerShown: false })}
                 />
             </Stack.Navigator>
         </NavigationContainer>
