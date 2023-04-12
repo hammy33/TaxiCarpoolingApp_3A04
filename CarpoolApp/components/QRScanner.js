@@ -35,7 +35,7 @@ export default function QRScanner({ navigation }) {
                 },
                 {
                   text: 'Confirm',
-                  onPress: () => navigation.navigate('OfferCarpool'),
+                  onPress: () => navigation.navigate('OfferCarpool', { carInfo: carInfo }),
                 },
               ],
               { cancelable: false }
