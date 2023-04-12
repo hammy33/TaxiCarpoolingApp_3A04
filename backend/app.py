@@ -77,7 +77,7 @@ def login():
 # Get Account
 # BODY: {email}
 @app.route("/getaccount", methods = ['POST'])
-def login():
+def getaccount():
     req = decrypt(request.get_json()['data'])
     email = req["email"]
     return jsonify({'data': encrypt(getAccount(email))})
@@ -214,10 +214,10 @@ def getCarpool():
 @app.route("/endcarpool", methods = ['POST'])
 def endCarpool(offerer):
     req = decrypt(request.get_json()['data'])
-    offerer, requester = req['offerer'], req['requester']
+    email = req['email']
   
     for carpool in carpools:
-        if carpool['active'] and carpool['offerer'] == offerer and carpool['requester'] == requester:
+        if carpool['active'] and email in carpool['carpoolers']:
             carpool['active'] = False
             return jsonify({'data': encrypt(carpool)})
 

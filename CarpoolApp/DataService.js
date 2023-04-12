@@ -26,7 +26,7 @@ const decrypt = (message) => {
 
 const DataService = {
     profile: {
-        email: "",
+        email: "test@1.com",
         password: "",
         name: "",
         rating: 0,
@@ -192,15 +192,12 @@ const DataService = {
             .then((response) => response.json())
             .then((response) => decrypt(response.data)),
     // End carpool given offerer + requester
-    endCarpool: (offererEmail, requesterEmail) =>
+    endCarpool: (email) =>
         fetch(`${config.api}/endcarpool`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
-                data: encrypt({
-                    offerer: offererEmail,
-                    requester: requesterEmail,
-                }),
+                data: encrypt({ email }),
             }),
         })
             .then((response) => response.json())
