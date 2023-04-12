@@ -162,6 +162,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
   },
+  waitText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#ffff'
+  },
+  waitTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    alignSelf: 'center',
+    color: '#F7EBE8',
+  },
   });
 
 export default styles;
