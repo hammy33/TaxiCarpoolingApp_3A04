@@ -86,7 +86,7 @@ const DataService = {
             .then((response) => decrypt(response.data));
     },
     deleteAcc: (email) =>
-        fetch(`${config.api}/account/update`, {
+        fetch(`${config.api}/account/delete`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({

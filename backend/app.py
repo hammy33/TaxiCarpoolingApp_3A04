@@ -133,7 +133,7 @@ def addOffers():
 # Gets requests made to offers for an offerer
 # BODY {offerer: email}
 @app.route("/getrequests", methods = ['POST'])
-def getRequests(offerer):
+def getRequests():
     req = decrypt(request.get_json()['data'])
     offerer = req['offerer']
     offerRequests = []
@@ -212,12 +212,12 @@ def getCarpool():
 # End carpool given offerer + requester
 # BODY {offerer: email, requester: email}
 @app.route("/endcarpool", methods = ['POST'])
-def endCarpool(offerer):
+def endCarpool():
     req = decrypt(request.get_json()['data'])
     email = req['email']
   
     for carpool in carpools:
-        if carpool['active'] and email in carpool['carpoolers']:
+        if email in carpool['carpoolers']:
             carpool['active'] = False
             return jsonify({'data': encrypt(carpool)})
 
