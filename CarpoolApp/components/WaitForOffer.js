@@ -7,9 +7,18 @@ import DataService from '../DataService';
 export default function WaitForOffer({ navigation }) {
 
     const refresh = () => {
+        console.log('this worked')
         DataService.getOffersForRequester(1, 1, 1, 1).then((res) =>
-            console.log(res)
+            {if (res != null){
+                //navigate to the your carpool has been found!
+            }
+            }
         );
+
+        DataService.getCarpool('1', '1').then((res) => 
+            console.out(res)
+        );
+        navigation.navigate('Waiting')
     }
 
     return (

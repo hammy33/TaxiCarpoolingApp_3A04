@@ -15,6 +15,9 @@ export default function Request({ navigation }) {
     console.log(`Starting point: ${start}`);
     console.log(`Destination: ${destination}`);
 
+
+    DataService.addOffer(email, 1, 1, 1, 1)
+
     // Navigate to the Personality Test screen
     navigation.navigate('Waiting');
     return;
