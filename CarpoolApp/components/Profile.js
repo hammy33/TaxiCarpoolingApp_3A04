@@ -1,29 +1,31 @@
 import React from "react";
 import styles from "../styles/styles";
 import {Text, View, Alert, TextInput, TouchableOpacity, Image} from "react-native";
-import { DataService } from '../DataService.js';
+import DataService from '../DataService';
 
 const Profile = ({ navigation }) => {
-    const [name, setName] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [number, setNumber] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const rating = ' ';
-    const rewards = 'r1';
+    let customerEmail = "" 
+    
+    DataService.getAccount(customerEmail).then((account) => {account}).catch((error) => {console.log("Cannot retrieve account")});
+
+    const [name, setName] = React.useState(account.name);
+    const [email, setEmail] = React.useState(account.email);
+    const [password, setPassword] = React.useState(account.password);
+    const rating = account.rating;
+    const rewards = account.rewards;
 
     const handleDeleteAccount = () => {
-        DataService.deleteAcc(email)
+        DataService.deleteAcc(account.email)
         .then(response => {
             console.log("Account deleted successfully", response);
         })
         .catch(error => {
             console.error("Failed to delete account", error);
         });
-
         navigation.navigate('Home');
     };
 
-    const AreYouSure = () => {
+    const confirmDelete = () => {
         Alert.alert('Confirmation', 'You cannot go back!', [
             {
                 text: 'Cancel',
@@ -47,13 +49,13 @@ const Profile = ({ navigation }) => {
     };
 
     const handleSave = () => {
-        const account = {
+        const updatedAccount = {
             name: name,
             email: email,
             password: password,
         }
 
-        DataService.updateAcc(account)
+        DataService.updateAcc(updatedAccount)
         .then(response => {
             console.log("Account updated successfully", response);
         })
@@ -133,7 +135,7 @@ const Profile = ({ navigation }) => {
                 <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.profilebutton} onPress={AreYouSure}>
+            <TouchableOpacity style={styles.profilebutton} onPress={confirmDelete}>
                 <Text style={{color: '#E54B4B', fontSize: 18, fontWeight: 'bold', alignSelf: 'center',}}>Delete Account</Text>
             </TouchableOpacity>
         </View>
