@@ -67,7 +67,7 @@ def login():
 
     res = False
     account = getAccount(email)
-    if not account:
+    if account == None:
         return "Record not found", 400
     if password == account["password"]:
         res = account 
